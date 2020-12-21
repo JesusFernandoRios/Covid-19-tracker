@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import './App.css';
 import { FormControl, MenuItem, Select, Card, CardContent}from '@material-ui/core'
+import InfoBox from './Components/InfoBox'
+import Map from './Components/Map'
 
 function App() {
   const [countries, setCountries] = useState([])
+  const [country, setCountry] = useState("worldwide")
 
   useEffect(() => {
 
@@ -26,13 +29,24 @@ function App() {
     getCountryData()
   },[])
 
+  
+  const onCountryChange = async (selectedCountry) => {
+
+    const countryCode = selectedCountry.target.value
+
+    setCountry(countryCode)
+  }
+
   return (
     <div className="app">
       <div className="app__header">
         <h1>Covid-19 Tracker</h1>
+
         <FormControl className="app__dropdown">
           <Select
-          variant="outlined"value="abc">
+          variant="outlined" value={country} onChange={onCountryChange}>
+
+            <MenuItem value="worldwide">Worldwide</MenuItem>
 
             {countries.map((country) => (
               <MenuItem value={country.value}>{country.name}</MenuItem>
@@ -40,6 +54,16 @@ function App() {
 
           </Select>
         </FormControl>
+      </div>
+
+      <div className="stats">
+
+        <InfoBox cases={12331} total={2000} title="Coronavirus Cases"/>
+
+        <InfoBox cases={24441} total={2000} title="Recovered"/>
+
+        <InfoBox cases={223377} total={2000} title="Deaths"/>
+
       </div>
     
     </div>
