@@ -35,37 +35,55 @@ function App() {
     const countryCode = selectedCountry.target.value
 
     setCountry(countryCode)
+
+    const url = countryCode == 'worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+
+    
   }
 
   return (
     <div className="app">
-      <div className="app__header">
-        <h1>Covid-19 Tracker</h1>
+      <div className="leftside__app">
 
-        <FormControl className="app__dropdown">
-          <Select
-          variant="outlined" value={country} onChange={onCountryChange}>
+        <div className="app__header">
+          <h1>Covid-19 Tracker</h1>
 
-            <MenuItem value="worldwide">Worldwide</MenuItem>
+          <FormControl className="app__dropdown">
+            <Select
+            variant="outlined" value={country} onChange={onCountryChange}>
 
-            {countries.map((country) => (
+              <MenuItem value="worldwide">Worldwide</MenuItem>
+
+              {countries.map((country) => (
               <MenuItem value={country.value}>{country.name}</MenuItem>
-            ))}
+              ))}
 
-          </Select>
-        </FormControl>
-      </div>
+            </Select>
+          </FormControl>
+        </div>
 
-      <div className="stats">
+        <div className="stats">
 
-        <InfoBox cases={12331} total={2000} title="Coronavirus Cases"/>
+          <InfoBox cases={12331} total={2000} title="Coronavirus Cases"/>
 
-        <InfoBox cases={24441} total={2000} title="Recovered"/>
+          <InfoBox cases={24441} total={2000} title="Recovered"/>
 
-        <InfoBox cases={223377} total={2000} title="Deaths"/>
+          <InfoBox cases={223377} total={2000} title="Deaths"/>
 
-      </div>
+        </div>
     
+      </div>
+
+      <div className="rightside__app">
+        <Card>
+          <CardContent>
+            <h3>Live Cases by Country</h3>
+
+            <h3>Worldwide New Cases</h3>
+          </CardContent>
+        </Card>
+      </div>
+      
     </div>
   );
 }
