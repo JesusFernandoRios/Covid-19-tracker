@@ -3,10 +3,21 @@ import './App.css';
 import { FormControl, MenuItem, Select, Card, CardContent}from '@material-ui/core'
 import InfoBox from './Components/InfoBox'
 import Map from './Components/Map'
+import Table from './Components/Table'
+import {sortData} from './utils'
+import LineGraph from './Components/LineGraph'
 
 function App() {
   const [countries, setCountries] = useState([])
   const [country, setCountry] = useState("worldwide")
+  const [currentCountry, setCurrentCountry] = useState({})
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetch("https://disease.sh/v3/covid-19/all")
+    .then(res => res.json())
+    .then(data => setCurrentCountry(data))
+  },[])
 
   useEffect(() => {
 
@@ -22,6 +33,8 @@ function App() {
           }
         ))
 
+        const sortedData = sortData(data)
+        setTableData(sortedData)
         setCountries(countries);
       })
     } 
@@ -34,12 +47,19 @@ function App() {
 
     const countryCode = selectedCountry.target.value
 
-    setCountry(countryCode)
+    const url = countryCode === 'worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`
 
-    const url = countryCode == 'worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+    await fetch(url).then(
+      res => res.json()
 
+    ).then( data => {
+      setCountry(countryCode)
+      setCurrentCountry(data)
+    })
     
   }
+
+    console.log("country>>>>>>", currentCountry)
 
   return (
     <div className="app">
@@ -64,22 +84,30 @@ function App() {
 
         <div className="stats">
 
-          <InfoBox cases={12331} total={2000} title="Coronavirus Cases"/>
+          <InfoBox cases={currentCountry.todayCases} total={currentCountry.cases} title="Coronavirus Cases"/>
 
-          <InfoBox cases={24441} total={2000} title="Recovered"/>
+          <InfoBox cases={currentCountry.todayRecovered} total={currentCountry.recovered} title="Recovered"/>
 
-          <InfoBox cases={223377} total={2000} title="Deaths"/>
+          <InfoBox cases={currentCountry.todayDeaths} total={currentCountry.deaths} title="Deaths"/>
 
         </div>
-    
+
+        <Map/>
+
       </div>
 
       <div className="rightside__app">
         <Card>
           <CardContent>
+
             <h3>Live Cases by Country</h3>
 
+            <Table countries={tableData}/>
+
             <h3>Worldwide New Cases</h3>
+
+            <LineGraph />
+
           </CardContent>
         </Card>
       </div>
