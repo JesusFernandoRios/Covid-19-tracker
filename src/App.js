@@ -4,7 +4,7 @@ import { FormControl, MenuItem, Select, Card, CardContent}from '@material-ui/cor
 import InfoBox from './Components/InfoBox'
 import Map from './Components/Map'
 import Table from './Components/Table'
-import {sortData} from './utils'
+import {sortData, prettyPrint} from './utils'
 import LineGraph from './Components/LineGraph'
 import 'leaflet/dist/leaflet.css'
 
@@ -16,6 +16,7 @@ function App() {
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796})
   const [mapZoom, setMapZoom] = useState(3)
   const [mapCountries, setMapCountries] = useState([])
+  const [casesType, setCasesType] = useState('cases')
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -92,11 +93,20 @@ function App() {
 
         <div className="stats">
 
-          <InfoBox cases={currentCountry.todayCases} total={currentCountry.cases} title="Coronavirus Cases"/>
+          <InfoBox 
+          cases={prettyPrint(currentCountry.todayCases)}
+          total={prettyPrint(currentCountry.cases)} 
+          title="Coronavirus Cases"/>
 
-          <InfoBox cases={currentCountry.todayRecovered} total={currentCountry.recovered} title="Recovered"/>
+          <InfoBox 
+          cases={prettyPrint(currentCountry.todayRecovered)}
+          total={prettyPrint(currentCountry.recovered)} 
+          title="Recovered"/>
 
-          <InfoBox cases={currentCountry.todayDeaths} total={currentCountry.deaths} title="Deaths"/>
+          <InfoBox 
+          cases={prettyPrint(currentCountry.todayDeaths)} 
+          total={prettyPrint(currentCountry.deaths)} 
+          title="Deaths"/>
 
         </div>
 

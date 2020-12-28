@@ -1,0 +1,16 @@
+.infoBox {
+    flex: 1;
+}
+
+.infoBox:not(:last-child){
+    margin-right: 10px;
+}
+
+.infobox__cases {
+    color: red;
+}
+
+.infobox__total {
+    font-weight: 700 !important;
+    color: black !important;
+}
