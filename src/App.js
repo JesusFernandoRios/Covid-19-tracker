@@ -52,17 +52,19 @@ function App() {
 
     const url = countryCode === 'worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`
 
-    await fetch(url).then(
+    await fetch(url)
+    .then(
       res => res.json()
-
     ).then( data => {
+      console.log('this is raw data >>', data)
       setCountry(countryCode)
       setCurrentCountry(data)
+      setMapCenter([data.countryInfo.lat, data.countryInfo.long])
+      setMapZoom(4)
+      console.log('this is mapcenter >>', mapCenter)
     })
     
   }
-
-    console.log("country>>>>>>", currentCountry)
 
   return (
     <div className="app">
