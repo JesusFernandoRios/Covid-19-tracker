@@ -60,12 +60,11 @@ function App() {
       res => res.json()
     ).then( data => {
 
-      console.log('this is raw data >>', data)
       setCountry(countryCode)
       setCurrentCountry(data)
       setMapCenter([data.countryInfo.lat, data.countryInfo.long])
       setMapZoom(5)
-      console.log('this is mapcenter >>', mapCenter)
+      
     })
     
   }
@@ -94,23 +93,30 @@ function App() {
         <div className="stats">
 
           <InfoBox 
+          onClick={(e) => setCasesType('cases')}
           cases={prettyPrint(currentCountry.todayCases)}
           total={prettyPrint(currentCountry.cases)} 
           title="Coronavirus Cases"/>
 
-          <InfoBox 
+          <InfoBox
+          onClick={(e) => setCasesType('recovered')}
           cases={prettyPrint(currentCountry.todayRecovered)}
           total={prettyPrint(currentCountry.recovered)} 
           title="Recovered"/>
 
-          <InfoBox 
+          <InfoBox
+          onClick={(e) => setCasesType('deaths')}
           cases={prettyPrint(currentCountry.todayDeaths)} 
           total={prettyPrint(currentCountry.deaths)} 
           title="Deaths"/>
 
         </div>
 
-        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom}/>
+        <Map 
+        casesType={casesType} 
+        countries={mapCountries} 
+        center={mapCenter} 
+        zoom={mapZoom}/>
 
       </div>
 
@@ -122,9 +128,9 @@ function App() {
 
             <Table countries={tableData}/>
 
-            <h3>Worldwide New Cases</h3>
+            <h3>Worldwide New {casesType}</h3>
 
-            <LineGraph />
+            <LineGraph casesType={casesType}/>
 
           </CardContent>
         </Card>
