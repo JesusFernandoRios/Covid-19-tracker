@@ -23,9 +23,17 @@ body{
   justify-content: space-between;
 }
 
+.app__dropdown {
+  background-color: white;
+}
+
 .stats {
   display: flex;
   justify-content: space-between;
+}
+
+h1 {
+  color: white;
 }
 
 
