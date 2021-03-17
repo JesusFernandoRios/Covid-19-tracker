@@ -22,6 +22,8 @@ function App() {
     fetch("https://disease.sh/v3/covid-19/all")
     .then(res => res.json())
     .then(data => setCurrentCountry(data))
+
+    setMapCenter()
   },[])
 
   useEffect(() => {
@@ -62,8 +64,8 @@ function App() {
 
       setCountry(countryCode)
       setCurrentCountry(data)
-      setMapCenter([data.countryInfo.lat, data.countryInfo.long])
-      setMapZoom(4)
+      setMapCenter({lat: data.countryInfo.lat, lng: data.countryInfo.long})
+      setMapZoom(5)
       
     })
     
