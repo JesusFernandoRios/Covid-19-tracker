@@ -1,19 +1,24 @@
-.table {
+.table__column {
     margin-top: 20px;
     overflow: scroll;
     height: 400px;
     color: black;
 }
 
-.table tr {
-    display: flex;
-    justify-content: space-between;
+.country__column {
+    width: 100%;
 }
 
-.table td {
+.country__column tr  {
+    display: flex;
+   justify-content: space-between;
+    
+}
+
+.table__column td {
     padding: 0.5rem;
 }
 
-.table tr:nth-of-type(odd) {
+.country__column:nth-of-type(odd) {
     background: lightsteelblue;
 }

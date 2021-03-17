@@ -4,31 +4,21 @@ import './style/table.css'
 
 function Table({countries}) {
     return (
-        <div className="table">
-<<<<<<< HEAD
-            <table>
-                <tbody>
-                    {countries.map( ({country, cases}, index) => {
-                    return(
-                    <tr key={index}>
-                        <td>{country}</td>
-                        <td><strong>{numeral(cases).format('0,0')}</strong></td>
-                    </tr>
-                    )
-                    })}
-                </tbody>
-            </table>
-            
-=======
+        <div className="table__column">
             {countries.map( ({country, cases}, index) => {
                return(
-               <tr key={index}>
-                    <td>{country}</td>
-                    <td><strong>{numeral(cases).format('0,0')}</strong></td>
-                </tr>
+                   <table className="country__column">
+                      <tbody>
+                            <tr index={index}>
+                                <td>{country}</td>
+                                <td><strong>{numeral(cases).format('0,0')}</strong></td>
+                            </tr>
+                        </tbody> 
+                   </table>
+                   
+               
                )
             })}
->>>>>>> f9a0e22aaccfde4b1e99d7ae7dc9118c1b21abfa
         </div>
     )
 }
