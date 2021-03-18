@@ -7,7 +7,7 @@ const casesTypeColors = {
     hex: "#CC1034",
     rgb: "rgb(204, 16, 52)",
     half_op: "rgba(204, 16, 52, 0.5)",
-    multiplier: 100,
+    multiplier: 200,
   },
   recovered: {
     hex: "#7dd71d",
@@ -23,7 +23,7 @@ const casesTypeColors = {
   },
 };
 
-export const sortData = (data) => {
+export let sortData = (data) => {
   let sortedData = [...data];
   sortedData.sort((a, b) => {
     if (a.cases > b.cases) {

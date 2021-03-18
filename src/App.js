@@ -24,6 +24,7 @@ function App() {
     .then(data => setCurrentCountry(data))
 
     setMapCenter()
+    
   },[])
 
   useEffect(() => {
@@ -55,18 +56,23 @@ function App() {
 
     const countryCode = selectedCountry.target.value
 
-    const url = countryCode === 'worldwide' ? "https://disease.sh/v3/covid-19/all" : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+    const url = 
+    countryCode === 'worldwide' 
+    ? "https://disease.sh/v3/covid-19/all" 
+    : `https://disease.sh/v3/covid-19/countries/${countryCode}`
 
     await fetch(url)
     .then(
       res => res.json()
     ).then( data => {
 
-      setCountry(countryCode)
-      setCurrentCountry(data)
-      setMapCenter({lat: data.countryInfo.lat, lng: data.countryInfo.long})
-      setMapZoom(5)
-      
+      setCountry(countryCode);
+      setCurrentCountry(data);
+      setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+      setMapZoom(4);
+      console.log(data)
+      console.log(currentCountry)
+      console.log(mapCenter)
     })
     
   }
@@ -118,8 +124,8 @@ function App() {
         </div>
 
         <Map 
-        casesType={casesType} 
         countries={mapCountries} 
+        casesType={casesType} 
         center={mapCenter} 
         zoom={mapZoom}/>
 
