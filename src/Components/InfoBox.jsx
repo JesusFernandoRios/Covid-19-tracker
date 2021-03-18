@@ -15,7 +15,7 @@ export default function InfoBox({title , cases, active, total, ...props}) {
                 <h2 className="infobox__cases">{cases}</h2>
 
                 <Typography className="infobox__total" color="textSecondary">
-                    {total} Total
+                    {total} Total cases
                 </Typography>
 
             </CardContent>
