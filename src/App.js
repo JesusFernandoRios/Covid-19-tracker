@@ -66,8 +66,8 @@ function App() {
       res => res.json()
     ).then( data => {
       
-      setCountry(countryCode);
       setCurrentCountry(data);
+      setCountry(countryCode);
       setMapZoom(4);
       setMapCenter([data.countryInfo.lat, data.countryInfo.long])
       console.log(data)
