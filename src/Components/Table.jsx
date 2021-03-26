@@ -15,8 +15,6 @@ function Table({countries}) {
                             </tr>
                         </tbody> 
                    </table>
-                   
-               
                )
             })}
         </div>
